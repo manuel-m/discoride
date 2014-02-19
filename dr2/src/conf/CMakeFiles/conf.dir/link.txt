@@ -1,0 +1,2 @@
+/usr/bin/ar cr libconf.a  CMakeFiles/conf.dir/raudio_config.c.o CMakeFiles/conf.dir/rdisplay_config.c.o CMakeFiles/conf.dir/rplaylist_config.c.o CMakeFiles/conf.dir/rstyle_config.c.o
+/usr/bin/ranlib libconf.a

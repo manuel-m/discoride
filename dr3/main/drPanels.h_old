@@ -1,0 +1,155 @@
+
+
+#ifndef UI_C
+#define	UI_C
+
+#include "rGlfw.h"
+#include "drWids.h"
+
+extern drUi_t* g_ui;
+
+
+static void ff11(int in){
+    printf("f11 (%d)\n",in); 
+}
+
+static void ftab(int in){ 
+    g_ui->ksets.cur = (g_ui->ksets.cur) ? 0 : 1;
+    printf("ftab (%d cur:%d)\n",in, g_ui->ksets.cur); 
+}
+
+#define COMMON_KEY_BIND \
+   DR_KEY_BIND(RKEY_F11,RFLAG_ENABLED,1,ff11), \
+   DR_KEY_BIND(RKEY_TAB,RFLAG_ENABLED,1,ftab)
+
+enum KSETS_ID {
+    KS_LEFT,
+    KS_RIGHT,
+    KS_WAVVIEW,
+    KS_PLAYLIST,
+    KS_MIX,
+    KS_NB
+};
+
+const rKey_t __KS_LEFT[RKEY_NB] = {
+  COMMON_KEY_BIND
+};
+
+const rKey_t __KS_RIGHT[RKEY_NB] = {
+  COMMON_KEY_BIND
+};
+
+const rKey_t __KS_WAVVIEW[RKEY_NB] = {
+  COMMON_KEY_BIND
+};
+
+const rKey_t __KS_PLAYLIST[RKEY_NB] = {
+  COMMON_KEY_BIND
+};
+
+const rKey_t __KS_MIX[RKEY_NB] = {
+  COMMON_KEY_BIND
+};
+
+
+const drKeysSet_t ___keysSet = {
+    .n = KS_NB,
+    .cur = KS_LEFT,
+};
+
+
+
+
+enum WIDS_ID {
+    DOCK_LEFT_0,
+    JOG_LEFT_0,
+    PLAY_LEFT_0,
+    LOOP_LEFT_0,
+    CUE_LEFT_0,
+    WAVNAV_LEFT_0,
+    DEPITCH_LEFT_0,
+    DOCK_RIGHT_1,
+    JOG_RIGHT_1,
+    PLAY_RIGHT_1,
+    LOOP_RIGHT_1,
+    CUE_RIGHT_1,
+    WAVNAV_RIGHT_1,
+    DEPITCH_RIGHT_1,
+    DOCK_MIX_0,
+    XFADER_MIX_0,
+    GAIN_MIX_0,
+    GAIN_MIX_1,
+    VOL_MIX_0,
+    VOL_MIX_1,
+    WAVMOVE_LEFT_0,
+    WAVMOVE_RIGHT_1,
+    PLAYLIST_UP_0,
+    NB_WIDS
+};
+
+
+static drWid_t ___twids[NB_WIDS] = {
+    /* ===============================================================
+     * DOCK_LEFT_0
+     * ===============================================================*/
+    DR_WID_BIND(drDock,DOCK_LEFT,0,-1,0.0f,0.0f,0.33f,0.39f,RFLAG_VISIBLE | RFLAG_FOCUS),
+    DR_WID_BIND(drJog,JOG_LEFT,0,DOCK_LEFT_0,0.27f,0.05f,0.5f,0.7f,RFLAG_VISIBLE ),
+    DR_WID_BIND(drPlay,PLAY_LEFT,0,DOCK_LEFT_0,0.02f,0.05f,0.2f,0.2f,RFLAG_VISIBLE | RCLIC_LEFT | RFLAG_ENABLED ),
+    DR_WID_BIND(drLoop,LOOP_LEFT,0,DOCK_LEFT_0,0.02f,0.5f,0.2f,0.2f,RFLAG_VISIBLE  ),
+    DR_WID_BIND(drCue,CUE_LEFT,0,DOCK_LEFT_0,0.02f,0.275f,0.2f,0.2f,RFLAG_VISIBLE  ),
+    DR_WID_BIND(drWavnav,WAVNAV_LEFT,0,DOCK_LEFT_0,0.05f,0.8f,0.9f,0.15f,RFLAG_VISIBLE  ),
+    DR_WID_BIND(drDepitch,DEPITCH_LEFT,0,DOCK_LEFT_0,0.83f,0.05f,0.12f,0.07f,RFLAG_VISIBLE  ),
+    /* ===============================================================
+     * DOCK_RIGHT_1
+     * ===============================================================*/
+    DR_WID_BIND(drDock,DOCK_RIGHT,1,-1,0.67f,0.0f,0.33f,0.39f,RFLAG_VISIBLE | RFLAG_FOCUS),
+    DR_WID_BIND(drJog,JOG_RIGHT,1,DOCK_RIGHT_1,0.27f,0.05f,0.5f,0.7f,RFLAG_VISIBLE ),
+    DR_WID_BIND(drPlay,PLAY_RIGHT,1,DOCK_RIGHT_1,0.02f,0.05f,0.2f,0.2f,RFLAG_VISIBLE | RCLIC_LEFT | RFLAG_ENABLED ),
+    DR_WID_BIND(drLoop,LOOP_RIGHT,1,DOCK_RIGHT_1,0.02f,0.5f,0.2f,0.2f,RFLAG_VISIBLE  ),
+    DR_WID_BIND(drCue,CUE_RIGHT,1,DOCK_RIGHT_1,0.02f,0.275f,0.2f,0.2f,RFLAG_VISIBLE  ),
+    DR_WID_BIND(drWavnav,WAVNAV_RIGHT,1,DOCK_RIGHT_1,0.05f,0.8f,0.9f,0.15f,RFLAG_VISIBLE  ),
+    DR_WID_BIND(drDepitch,DEPITCH_RIGHT,1,DOCK_RIGHT_1,0.83f,0.05f,0.12f,0.07f,RFLAG_VISIBLE  ),    
+    /* ===============================================================
+     * DOCK_MIX_0
+     * ===============================================================*/
+    DR_WID_BIND(drDock,DOCK_MIX,0,-1,0.335f,0.0f,0.33f,0.39f,RFLAG_VISIBLE),
+    DR_WID_BIND(drXfader,XFADER_MIX,0,DOCK_MIX_0,0.335f,0.0f,0.33f,0.39f,RFLAG_VISIBLE),
+    DR_WID_BIND(drGain,GAIN_MIX,0,DOCK_MIX_0,0.05f,0.75f,0.12f,0.2f,RFLAG_VISIBLE),
+    DR_WID_BIND(drGain,GAIN_MIX,1,DOCK_MIX_0,0.83f,0.75f,0.12f,0.2f,RFLAG_VISIBLE),
+    DR_WID_BIND(drVol,VOL_MIX,0,DOCK_MIX_0,0.05f,0.04f,0.12f,0.7f,RFLAG_VISIBLE),
+    DR_WID_BIND(drVol,VOL_MIX,1,DOCK_MIX_0,0.83f,0.04f,0.12f,0.7f,RFLAG_VISIBLE),
+    /* ===============================================================
+     * WAVVIEW_LEFT_0
+     * ===============================================================*/
+    DR_WID_BIND(drWavmove,WAVMOVE_LEFT,0,-1,0.0f,0.5f,1.f,0.1f,RFLAG_VISIBLE),
+    /* ===============================================================
+     * WAVVIEW_RIGHT_1
+     * ===============================================================*/
+    DR_WID_BIND(drWavmove,WAVMOVE_RIGHT,1,-1,0.0f,0.4f,1.f,0.1f,RFLAG_VISIBLE),
+    /* ===============================================================
+     * PLAYLIST_UP_0
+     * ===============================================================*/
+    DR_WID_BIND(drPlaylist,PLAYLIST_UP,0,-1,0.0f,0.6f,0.95f,0.4f,RFLAG_VISIBLE),
+
+};
+
+drWids_t ___wids = {
+    .n = NB_WIDS,
+    .t = ___twids
+};
+
+
+
+
+#ifdef	__cplusplus
+extern "C" {
+#endif
+
+
+
+#ifdef	__cplusplus
+}
+#endif
+
+#endif	/* UI_H */
+

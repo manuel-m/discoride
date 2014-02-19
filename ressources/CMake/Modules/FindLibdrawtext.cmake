@@ -1,0 +1,18 @@
+find_path(LIBDRAWTEXT_INCLUDE_DIR NAMES drawtext.h
+          PATH_SUFFIXES drawtext
+          DOC "The libdrawtext include directory"
+)
+
+find_library(LIBDRAWTEXT_LIBRARY NAMES drawtext
+          DOC "The libdrawtext library"
+)
+
+include(FindPackageHandleStandardArgs)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(LIBDRAWTEXT DEFAULT_MSG LIBDRAWTEXT_LIBRARY LIBDRAWTEXT_INCLUDE_DIR)
+
+if(LIBDRAWTEXT_FOUND)
+  set( LIBDRAWTEXT_LIBRARIES ${LIBDRAWTEXT_LIBRARY} )
+  set( LIBDRAWTEXT_INCLUDE_DIRS ${LIBDRAWTEXT_INCLUDE_DIR} )
+endif()
+
+mark_as_advanced(LIBDRAWTEXT_INCLUDE_DIR LIBDRAWTEXT_LIBRARY)

@@ -1,0 +1,153 @@
+PRAGMA foreign_keys=OFF;
+BEGIN TRANSACTION;
+CREATE TABLE attribs (
+	i INTEGER PRIMARY KEY  NOT NULL ,
+	type TEXT NOT NULL ,
+	name TEXT UNIQ NOT NULL , 
+	def_value TEXT);
+INSERT INTO "attribs" VALUES(1,'rlswid','wids',NULL);
+INSERT INTO "attribs" VALUES(2,'rlswid','cwids',NULL);
+INSERT INTO "attribs" VALUES(3,'rlsstyle','styles',NULL);
+INSERT INTO "attribs" VALUES(4,'rkeys','keys',NULL);
+INSERT INTO "attribs" VALUES(5,'int','mouse_wheel','0');
+INSERT INTO "attribs" VALUES(9,'int','design_height','2000');
+INSERT INTO "attribs" VALUES(10,'int','design_width','2000');
+INSERT INTO "attribs" VALUES(11,'int','video_flags','0');
+INSERT INTO "attribs" VALUES(12,'int','saved_window_width',NULL);
+INSERT INTO "attribs" VALUES(13,'int','saved_window_height',NULL);
+INSERT INTO "attribs" VALUES(15,'rplaylist','playlist',NULL);
+INSERT INTO "attribs" VALUES(16,'rtrack *','playlist_selected_track',NULL);
+INSERT INTO "attribs" VALUES(17,'raudio','ad',NULL);
+INSERT INTO "attribs" VALUES(18,'double','gain_factor','3');
+INSERT INTO "attribs" VALUES(19,'double','depitch_factor','0.15');
+INSERT INTO "attribs" VALUES(20,'rtrack *','chan0_track',NULL);
+INSERT INTO "attribs" VALUES(21,'rtrack *','chan1_track',NULL);
+INSERT INTO "attribs" VALUES(22,'int','alloc_disable',NULL);
+INSERT INTO "attribs" VALUES(23,'rlschar255','args',NULL);
+INSERT INTO "attribs" VALUES(24,'rlsfunc','ml_functions',NULL);
+INSERT INTO "attribs" VALUES(25,'size_t','dock0_track_index',NULL);
+INSERT INTO "attribs" VALUES(26,'size_t','dock1_track_index',NULL);
+INSERT INTO "attribs" VALUES(27,'int','dock0_loaded',NULL);
+INSERT INTO "attribs" VALUES(28,'int','dock1_loaded',NULL);
+INSERT INTO "attribs" VALUES(29,'rwid*','rwid_over',NULL);
+INSERT INTO "attribs" VALUES(30,'int','playlist_focus',NULL);
+INSERT INTO "attribs" VALUES(31,'raudio_meter','peak_meter_main',NULL);
+INSERT INTO "attribs" VALUES(32,'raudio_meter','peak_meter_0',NULL);
+INSERT INTO "attribs" VALUES(33,'raudio_meter','peak_meter_1',NULL);
+INSERT INTO "attribs" VALUES(34,'GLuint*','texs_id',NULL);
+INSERT INTO "attribs" VALUES(35,'int','mouse_x',NULL);
+INSERT INTO "attribs" VALUES(36,'int','mouse_y',NULL);
+INSERT INTO "attribs" VALUES(37,'ruser_evtQ','user_evtQ',NULL);
+INSERT INTO "attribs" VALUES(41,'int','check_resize','0');
+INSERT INTO "attribs" VALUES(42,'int','resize_flag','0');
+INSERT INTO "attribs" VALUES(43,'rchans ','chans',NULL);
+INSERT INTO "attribs" VALUES(44,'rcpu','cpu',NULL);
+INSERT INTO "attribs" VALUES(45,'rlspoll_cb','poll_cbs',NULL);
+INSERT INTO "attribs" VALUES(46,'int','chan0_loading','0');
+INSERT INTO "attribs" VALUES(47,'int','chan1_loading','0');
+INSERT INTO "attribs" VALUES(48,'rRGB','window_bg_color',NULL);
+INSERT INTO "attribs" VALUES(49,'int','chan0_straffing','0');
+INSERT INTO "attribs" VALUES(50,'int','chan1_straffing','0');
+INSERT INTO "attribs" VALUES(51,'int','chan0_straffway',NULL);
+INSERT INTO "attribs" VALUES(52,'int','chan1_straffway',NULL);
+INSERT INTO "attribs" VALUES(53,'int','chan0_normalizing','0');
+INSERT INTO "attribs" VALUES(54,'int','chan1_normalizing','0');
+CREATE TABLE datas (
+	i INTEGER PRIMARY KEY  NOT NULL ,
+	type TEXT NOT NULL ,
+	name TEXT UNIQ NOT NULL,
+	def_value TEXT);
+INSERT INTO "datas" VALUES(1,'rdh_double','ratio',NULL);
+INSERT INTO "datas" VALUES(2,'rdh_int','quit',NULL);
+INSERT INTO "datas" VALUES(3,'rdh_int','desktop_height',NULL);
+INSERT INTO "datas" VALUES(4,'rdh_int','desktop_width',NULL);
+INSERT INTO "datas" VALUES(5,'rdh_double','ratio_height',NULL);
+INSERT INTO "datas" VALUES(6,'rdh_double','ratio_width',NULL);
+INSERT INTO "datas" VALUES(7,'rdh_int','window_height',NULL);
+INSERT INTO "datas" VALUES(8,'rdh_int','window_width',NULL);
+INSERT INTO "datas" VALUES(9,'rdh_int','window_mode','RDISPLAY_WINDOW');
+INSERT INTO "datas" VALUES(10,'rdh_char255','window_caption','"discoride - pitch my beach"');
+INSERT INTO "datas" VALUES(12,'rdh_double','global_font_coef','1.0');
+INSERT INTO "datas" VALUES(13,'rdh_int','button_activated_flag',NULL);
+INSERT INTO "datas" VALUES(14,'rdh_int','button_enabled_flag',NULL);
+INSERT INTO "datas" VALUES(15,'rdh_char255','button_label',NULL);
+INSERT INTO "datas" VALUES(16,'rdh_int','display_state','rnormal');
+INSERT INTO "datas" VALUES(17,'rdh_int','playlist0_state','rdisabled');
+INSERT INTO "datas" VALUES(18,'rdh_char255','playlist0_label',NULL);
+INSERT INTO "datas" VALUES(19,'rdh_int','playlist1_state','rdisabled');
+INSERT INTO "datas" VALUES(20,'rdh_char255','playlist1_label',NULL);
+INSERT INTO "datas" VALUES(21,'rdh_int','playlist2_state','rdisabled');
+INSERT INTO "datas" VALUES(22,'rdh_char255','playlist2_label',NULL);
+INSERT INTO "datas" VALUES(23,'rdh_int','playlist3_state','rdisabled');
+INSERT INTO "datas" VALUES(24,'rdh_char255','playlist3_label',NULL);
+INSERT INTO "datas" VALUES(25,'rdh_int','playlist4_state','rdisabled');
+INSERT INTO "datas" VALUES(26,'rdh_char255','playlist4_label',NULL);
+INSERT INTO "datas" VALUES(27,'rdh_int','playlist5_state','rdisabled');
+INSERT INTO "datas" VALUES(28,'rdh_char255','playlist5_label',NULL);
+INSERT INTO "datas" VALUES(29,'rdh_int','playlist6_state','rdisabled');
+INSERT INTO "datas" VALUES(30,'rdh_char255','playlist6_label',NULL);
+INSERT INTO "datas" VALUES(31,'rdh_int','playlist7_state','rdisabled');
+INSERT INTO "datas" VALUES(32,'rdh_char255','playlist7_label',NULL);
+INSERT INTO "datas" VALUES(33,'rdh_int','playlist_state','0');
+INSERT INTO "datas" VALUES(34,'rdh_size','playlist_pos','0');
+INSERT INTO "datas" VALUES(35,'rdh_size','playlist_pos_step','7');
+INSERT INTO "datas" VALUES(36,'rdh_size','activated_playlist_wid_i','0');
+INSERT INTO "datas" VALUES(37,'rdh_char255',' playlist0_duration_label',NULL);
+INSERT INTO "datas" VALUES(38,'rdh_char255','playlist1_duration_label',NULL);
+INSERT INTO "datas" VALUES(39,'rdh_char255','playlist2_duration_label',NULL);
+INSERT INTO "datas" VALUES(40,'rdh_char255','playlist3_duration_label',NULL);
+INSERT INTO "datas" VALUES(41,'rdh_char255','playlist4_duration_label',NULL);
+INSERT INTO "datas" VALUES(42,'rdh_char255','playlist5_duration_label',NULL);
+INSERT INTO "datas" VALUES(43,'rdh_char255','playlist6_duration_label',NULL);
+INSERT INTO "datas" VALUES(44,'rdh_char255','playlist7_duration_label',NULL);
+INSERT INTO "datas" VALUES(45,'rdh_int','audio_state','rnormal');
+INSERT INTO "datas" VALUES(46,'rdh_double','xfader','0.5');
+INSERT INTO "datas" VALUES(47,'rdh_double','xfader_step','0.03');
+INSERT INTO "datas" VALUES(48,'rdh_double','chan0_vol','1.0');
+INSERT INTO "datas" VALUES(49,'rdh_double','chan1_vol','1.0');
+INSERT INTO "datas" VALUES(50,'rdh_double','chan0_gain','0.0');
+INSERT INTO "datas" VALUES(51,'rdh_double','chan1_gain','0.0');
+INSERT INTO "datas" VALUES(52,'rdh_double','chan0_depitch','0.5');
+INSERT INTO "datas" VALUES(53,'rdh_double','chan1_depitch','0.5');
+INSERT INTO "datas" VALUES(54,'rdh_int','chan0_state','rdisabled');
+INSERT INTO "datas" VALUES(55,'rdh_int','chan1_state','rdisabled');
+INSERT INTO "datas" VALUES(58,'rdh_char255','chan0_cue_label','"cue"');
+INSERT INTO "datas" VALUES(59,'rdh_char255','chan1_cue_label','"cue"');
+INSERT INTO "datas" VALUES(60,'rdh_char255','chan0_track_title','" "');
+INSERT INTO "datas" VALUES(61,'rdh_char255','chan1_track_title','" "');
+INSERT INTO "datas" VALUES(62,'rdh_int','chan0_cue_state','0');
+INSERT INTO "datas" VALUES(63,'rdh_int','chan1_cue_state','0');
+INSERT INTO "datas" VALUES(64,'rdh_double','chan0_pos_norm','0');
+INSERT INTO "datas" VALUES(65,'rdh_double','chan1_pos_norm','0');
+INSERT INTO "datas" VALUES(66,'rdh_int','chan0_can_load','rdisabled');
+INSERT INTO "datas" VALUES(67,'rdh_int','chan1_can_load','rdisabled');
+INSERT INTO "datas" VALUES(68,'rdh_char255','chan0_play_label','"play"');
+INSERT INTO "datas" VALUES(69,'rdh_char255','chan1_play_label','"play"');
+INSERT INTO "datas" VALUES(70,'rdh_double','main_vumeter_left','0');
+INSERT INTO "datas" VALUES(71,'rdh_double','main_vumeter_right','0');
+INSERT INTO "datas" VALUES(72,'rdh_double','chan0_vumeter_left','0');
+INSERT INTO "datas" VALUES(73,'rdh_double','chan0_vumeter_right','0');
+INSERT INTO "datas" VALUES(74,'rdh_double','chan1_vumeter_left','0');
+INSERT INTO "datas" VALUES(75,'rdh_double','chan1_vumeter_right','0');
+INSERT INTO "datas" VALUES(76,'rdh_char255','deckA_label','"A"');
+INSERT INTO "datas" VALUES(77,'rdh_char255','deckB_label','"B"');
+INSERT INTO "datas" VALUES(78,'rdh_double','chan0_punch','1.0');
+INSERT INTO "datas" VALUES(79,'rdh_double','chan1_punch','1.0');
+INSERT INTO "datas" VALUES(80,'rdh_double','cpu_user','0');
+CREATE TABLE mutex (
+	i INTEGER PRIMARY KEY  NOT NULL ,
+	name TEXT UNIQ NOT NULL);
+INSERT INTO "mutex" VALUES(1,'mp3_decode_mutex');
+INSERT INTO "mutex" VALUES(2,'user_evts_mutex');
+CREATE TABLE "threads" (
+    "name" TEXT NOT NULL
+);
+INSERT INTO "threads" VALUES('raudio_chan0_decode_callback_TS');
+INSERT INTO "threads" VALUES('raudio_chan1_decode_callback_TS');
+INSERT INTO "threads" VALUES('rplaylist_tag_decode_callback_TS');
+CREATE TABLE "timers" (
+    "name" TEXT NOT NULL
+);
+INSERT INTO "timers" VALUES('lag_resize');
+INSERT INTO "timers" VALUES('current');
+COMMIT;

@@ -1,0 +1,5 @@
+#include "rWid.h"
+
+
+DR_WID_CB_STUB(drWid);
+

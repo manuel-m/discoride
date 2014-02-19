@@ -1,0 +1,179 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="88">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="." name="glfw-2.7.7">
+      <df name="CMakeFiles">
+        <df name="2.8.10.1">
+          <df name="CompilerIdC">
+            <in>CMakeCCompilerId.c</in>
+          </df>
+          <df name="CompilerIdCXX">
+            <in>CMakeCXXCompilerId.cpp</in>
+          </df>
+        </df>
+        <df name="CMakeTmp">
+        </df>
+        <df name="glfw.dir">
+          <df name="lib">
+            <df name="x11">
+            </df>
+          </df>
+        </df>
+      </df>
+      <df name="docs">
+      </df>
+      <df name="examples">
+        <in>boing.c</in>
+        <in>gears.c</in>
+        <in>getopt.c</in>
+        <in>getopt.h</in>
+        <in>heightmap.c</in>
+        <in>listmodes.c</in>
+        <in>mipmaps.c</in>
+        <in>mtbench.c</in>
+        <in>mthello.c</in>
+        <in>particles.c</in>
+        <in>pong3d.c</in>
+        <in>splitview.c</in>
+        <in>triangle.c</in>
+        <in>wave.c</in>
+      </df>
+      <df name="include">
+        <df name="GL">
+          <in>glfw.h</in>
+        </df>
+      </df>
+      <df name="lib">
+        <df name="carbon">
+          <in>carbon_enable.c</in>
+          <in>carbon_fullscreen.c</in>
+          <in>carbon_glext.c</in>
+          <in>carbon_init.c</in>
+          <in>carbon_joystick.c</in>
+          <in>carbon_thread.c</in>
+          <in>carbon_time.c</in>
+          <in>carbon_window.c</in>
+          <in>platform.h</in>
+        </df>
+        <df name="cocoa">
+          <in>cocoa_enable.m</in>
+          <in>cocoa_fullscreen.m</in>
+          <in>cocoa_glext.m</in>
+          <in>cocoa_init.m</in>
+          <in>cocoa_joystick.m</in>
+          <in>cocoa_thread.c</in>
+          <in>cocoa_time.m</in>
+          <in>cocoa_window.m</in>
+          <in>platform.h</in>
+        </df>
+        <df name="win32">
+          <in>platform.h</in>
+          <in>win32_dllmain.c</in>
+          <in>win32_enable.c</in>
+          <in>win32_fullscreen.c</in>
+          <in>win32_glext.c</in>
+          <in>win32_init.c</in>
+          <in>win32_joystick.c</in>
+          <in>win32_thread.c</in>
+          <in>win32_time.c</in>
+          <in>win32_window.c</in>
+        </df>
+        <df name="x11">
+          <in>platform.h</in>
+          <in>x11_enable.c</in>
+          <in>x11_fullscreen.c</in>
+          <in>x11_glext.c</in>
+          <in>x11_init.c</in>
+          <in>x11_joystick.c</in>
+          <in>x11_keysym2unicode.c</in>
+          <in>x11_thread.c</in>
+          <in>x11_time.c</in>
+          <in>x11_window.c</in>
+        </df>
+        <in>enable.c</in>
+        <in>fullscreen.c</in>
+        <in>glext.c</in>
+        <in>image.c</in>
+        <in>init.c</in>
+        <in>input.c</in>
+        <in>internal.h</in>
+        <in>joystick.c</in>
+        <in>stream.c</in>
+        <in>tga.c</in>
+        <in>thread.c</in>
+        <in>time.c</in>
+        <in>window.c</in>
+      </df>
+      <df name="support">
+        <df name="d">
+          <df name="examples">
+          </df>
+          <df name="imports">
+          </df>
+          <df name="lib">
+          </df>
+        </df>
+        <df name="msvc100">
+        </df>
+        <df name="msvc110">
+        </df>
+        <df name="msvc90">
+        </df>
+        <df name="pascal">
+        </df>
+      </df>
+      <df name="tests">
+        <in>accuracy.c</in>
+        <in>defaults.c</in>
+        <in>dynamic.c</in>
+        <in>events.c</in>
+        <in>fsaa.c</in>
+        <in>fsinput.c</in>
+        <in>getopt.c</in>
+        <in>getopt.h</in>
+        <in>iconify.c</in>
+        <in>joysticks.c</in>
+        <in>peter.c</in>
+        <in>reopen.c</in>
+        <in>tearing.c</in>
+        <in>version.c</in>
+      </df>
+    </df>
+  </logicalFolder>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <developmentServer>localhost</developmentServer>
+        <platform>2</platform>
+      </toolsSet>
+      <dbx_gdbdebugger version="1">
+        <gdb_pathmaps>
+        </gdb_pathmaps>
+        <gdb_interceptlist>
+          <gdbinterceptoptions gdb_all="false" gdb_unhandled="true" gdb_unexpected="true"/>
+        </gdb_interceptlist>
+        <gdb_options>
+          <DebugOptions>
+          </DebugOptions>
+        </gdb_options>
+        <gdb_buildfirst gdb_buildfirst_overriden="false" gdb_buildfirst_old="false"/>
+      </dbx_gdbdebugger>
+      <nativedebugger version="1">
+        <engine>gdb</engine>
+      </nativedebugger>
+      <runprofile version="9">
+        <runcommandpicklist>
+          <runcommandpicklistitem>"${OUTPUT_PATH}"</runcommandpicklistitem>
+        </runcommandpicklist>
+        <runcommand>"${OUTPUT_PATH}"</runcommand>
+        <rundir>.</rundir>
+        <buildfirst>false</buildfirst>
+        <terminal-type>0</terminal-type>
+        <remove-instrumentation>0</remove-instrumentation>
+        <environment>
+        </environment>
+      </runprofile>
+    </conf>
+  </confs>
+</configurationDescriptor>

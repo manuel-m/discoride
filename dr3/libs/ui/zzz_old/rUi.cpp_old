@@ -1,0 +1,210 @@
+#include <string.h>
+#include "rUi.h"
+
+ int drUi_init(drUiMod_t* _mod) {
+     
+     if(g_ui || (!_mod)) return 1;
+     g_ui = (drUi_t*)calloc(1, sizeof (drUi_t));
+     
+     g_ui->mod = _mod;
+     
+     if(g_ui->mod->f_init){
+         DR_RERR( g_ui->mod->f_init() );
+     }
+     return 0;
+}
+ 
+int drUi_load(drWids_t* _wids){
+    
+    if(!g_ui || !_wids || !_wids->n) return 1;
+    {
+        uint16_t i;
+        const uint16_t n = _wids->n;
+        g_ui->wids = _wids;
+
+        drWid_t *wid = g_ui->wids->t;
+
+        for (i = 0; i < n; i++) {
+
+            if (wid->f_init) {
+                wid->f_init(wid);
+            } else {
+                drWid_init(wid);
+                
+            }
+            ++wid;
+        }
+    }
+    
+    return 0;
+}
+
+int drUi_terminate(void) {
+
+    DR_RERR( g_ui->mod->f_close() );
+    
+    if (g_ui->mod) {
+        free(g_ui->mod);
+        g_ui->mod = NULL;
+    }    
+    
+    if (g_ui) {
+        free(g_ui);
+        g_ui = NULL;
+    }
+    return 0;
+}
+
+
+ 
+
+ 
+ int drUi_mouseClic(int _id, int _state) {
+
+    int i = g_ui->wids->n;
+    drWid_t *pwid = g_ui->wids->t;
+
+    while (--i) {
+
+        if ((pwid->state & (RCLIC_LEFT | RCLIC_RIGHT)) && (R_INSIDE(g_ui->mouse.x, g_ui->mouse.y, pwid->bb))) {
+            pwid->f_mouseclic(pwid, _id, _state);
+            break;
+        }
+        ++pwid;
+    }
+    return 0;
+}
+
+int drUi_key(int _code, int _state) {
+
+    if ( RKEY_UP == _state) return 0;
+
+    rKey_t * k = &g_ui->ksets.t[g_ui->ksets.cur][_code];
+    if (k && (k->state & RFLAG_ENABLED)) {
+        k->f_run_key_down(k->user_data);
+    }
+    return 0;
+}
+
+int drUi_mouseMove(int _x, int _y) {
+
+    /* starts from last wid */
+    uint16_t i = g_ui->wids->n;
+
+    drWid_t* wid_found = NULL;
+    drWid_t* wid = &g_ui->wids->t[i];
+    const int flip_y = g_ui->window.h - _y;
+
+    g_ui->mouse.x = _x;
+    g_ui->mouse.y = flip_y;
+
+    /* wid found */
+    do {
+        --i;
+
+        if (R_INSIDE(_x, flip_y, wid->bb)) {
+            wid_found = wid;
+        }
+        --wid;
+
+    } while (i && !wid_found);
+
+    /* focus out  */
+    if (g_ui->wid_over != wid_found) {
+        drWid_t* prev_over = g_ui->wid_over;
+
+        /* focus out callback */
+        if (prev_over) {
+            if (prev_over->f_mouseover) {
+                /* focus unset */
+                prev_over->state &= ~RFLAG_FOCUS;
+                prev_over->f_mouseover(prev_over, prev_over->user_data, ROVER_OUT);
+            }
+        }
+
+        /* focus in   */
+        g_ui->wid_over = wid_found;
+
+        if (wid_found && (wid_found->state & RFLAG_ENABLED)) {
+
+            /* focus set */
+            g_ui->wid_over->state |= RFLAG_FOCUS;
+
+            /* fire cb if exists */
+            if (wid_found->f_mouseover) {
+                wid_found->f_mouseover(wid_found, wid_found->user_data, ROVER_IN);
+            }
+        }
+    }
+    return 0;
+}
+
+int drUi_mouseWheel(int _wheel) {
+
+    drWid_t* wid = g_ui->wid_over;
+    if (!wid || !wid->f_mousewheel) return 0;
+
+    wid->f_mousewheel(wid, wid->user_data, (_wheel > g_ui->mouse.wheel) ? RWHEEL_UP : RWHEEL_DOWN);
+    g_ui->mouse.wheel = _wheel;
+
+    return 0;
+}
+
+int drUi_ratioCompute(void) {
+
+    g_ui->ratio.w = (float) g_ui->window.w / RDISPLAY_W;
+    g_ui->ratio.h = (float) g_ui->window.h / RDISPLAY_H;
+    g_ui->ratio.g = R_MIN(g_ui->ratio.w, g_ui->ratio.h);
+
+    /* [!] wid list shall sorted with parents first */
+    return drUi_recomputeBb();
+
+}
+
+int drUi_recomputeBb(void) {
+
+    uint_fast8_t i = g_ui->wids->n;
+    drWid_t* wid = g_ui->wids->t;
+
+    do {
+
+        if (wid->parent_index != -1) {
+            const drWid_t* parent = &g_ui->wids->t[wid->parent_index];
+            const int base_x = parent->bb.x;
+            const int base_y = parent->bb.y;
+            const float base_width = (float) parent->bb.w;
+            const float base_height = (float) parent->bb.h;
+
+            wid->bb.x = base_x + (int) (wid->ratio.x * base_width);
+            wid->bb.y = base_y + (int) (wid->ratio.y * base_height);
+            wid->bb.w = (int) (base_width * wid->ratio.w);
+            wid->bb.h = (int) (base_height * wid->ratio.h);
+
+        } else {
+            const float base_width = (float) g_ui->window.w;
+            const float base_height = (float) g_ui->window.h;
+            wid->bb.x = (int) (base_width * wid->ratio.x);
+            wid->bb.y = (int) (base_height * wid->ratio.y);
+            wid->bb.w = (int) (base_width * wid->ratio.w);
+            wid->bb.h = (int) (base_height * wid->ratio.h);
+        }
+        wid->state |= RFLAG_RESIZE;
+        ++wid;
+
+    } while (--i);
+
+    return 0;
+}
+
+int drUi_redrawAll(void) {
+
+    uint_fast8_t i = g_ui->wids->n;
+    drWid_t* wid = g_ui->wids->t;
+
+  do {
+    if ( wid->state & RFLAG_VISIBLE) wid->f_draw(wid);
+
+  } while (--i);
+  
+  return 0;
+}

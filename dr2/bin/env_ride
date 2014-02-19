@@ -1,0 +1,339 @@
+#!/bin/bash
+
+export RROOT=$(pwd)
+export SUPER_ROOT=${RROOT}/..
+export RBACKUP=${SUPER_ROOT}/backup
+export RSRC=${RROOT}/src
+export RPROX=${RROOT}/proxy
+export RBIN=${RROOT}/bin
+export RRSR=${RROOT}/ressources
+export APPLICATION_NAME=dr2
+export RBUILD=${RROOT}/build
+
+###########################################################################
+# proxy
+###########################################################################
+f_proxy_gen()
+{
+  myPWD=$(pwd); cd ${RPROX}
+  ./genproxy_h.py > ${RSRC}/lib/rstack_proxy.h
+  ./genproxy_c.py > ${RSRC}/lib/rstack_proxy.c
+  cd ${myPWD}
+}
+
+###########################################################################
+# STREAM CAST
+###########################################################################
+f_priv_stream_cast()
+{
+  target_dir=${HOME}/Desktop/out_video
+#clean
+  rm -f $target_dir 2> /dev/null
+  mkdir -p $target_dir
+
+#webcam
+  xterm -T "myFace" -e  "mplayer tv:// -tv driver=v4l2:width=320:height=200:device=/dev/video0; " &
+
+#pc record
+  xterm -T "[CTRLC]" -e "arecord -f cd -t wav  $target_dir/sc_pc.wav; killall -15 recordmydesktop" &
+# arecord -f cd -t wav | lame --preset standard - $target_dir/sc_pc.mp3
+  recordmydesktop --fps 25 --freq 44100 -o $target_dir/sc.ogv 
+
+#transcode
+  #ffmpeg -i $target_dir/sc.ogv -ac 2  $target_dir/sc_speech_stereo.wav
+  #ffmpeg -i $target_dir/sc.ogv -an $target_dir/sc.mpg
+  #sox -m $target_dir/sc_pc.wav $target_dir/sc_speech_stereo.wav $target_dir/sc_mixed.wav
+  #ffmpeg -mbd rd -flags +mv4+aic -trellis 2 -cmp 2 -subcmp 2 -g 300 -pass 2 -i $target_dir/sc.mpg -i $target_dir/sc_mixed.wav  $target_dir/sc.m4a
+}
+f_stream_cast()
+{
+  f_priv_stream_cast &
+}
+###########################################################################
+# BUILD
+###########################################################################
+f_valgrind()
+{
+  rm ${RROOT}/valgrind.log 2> /dev/null
+  valgrind -v --tool=memcheck --leak-check=full --num-callers=40 --log-file=${RROOT}/valgrind.log ${ROUT}/discoride_0.0 $*
+  gedit ${RROOT}/valgrind.log &
+
+  rm /tmp/vl 2> /dev/null
+  for f in $(find $RSRC -name "*.c")
+  do 
+     grep $(basename $f) ${RROOT}/valgrind.log >> /tmp/vl 
+  done
+  sort -u /tmp/vl > /tmp/extract_error
+
+  gedit /tmp/extract_error &
+}
+###########################################################################
+fpriv_date()
+{
+  date '+%y%m%d_%H%M'
+}
+###########################################################################
+# f_clean
+###########################################################################
+f_clean()
+{
+  myPWD=$(pwd)
+  cd ${RBUILD} && rm -rf debug release 2>/dev/null
+  mkdir debug release
+  cd ${myPWD}
+}
+###########################################################################
+# edit
+###########################################################################
+f_edit()
+{
+  myPWD=$(pwd); cd ${RROOT}
+  kate bin/env_ride $(find -name CMakeLists.txt) $(find src -name "*.[ch]") TODO  INSTALL 2> /dev/null &
+  cd ${myPWD}
+}
+###########################################################################
+# f_config
+###########################################################################
+f_config()
+{
+  myPWD=$(pwd)
+
+  f_clean
+
+  #debug
+  cd ${RBUILD}
+  cd debug && cmake  -DCMAKE_BUILD_TYPE=debug ../..
+  cd ${myPWD}
+
+  #release
+  cd ${RBUILD}
+  cd release && cmake  -DCMAKE_BUILD_TYPE=release ../..
+  
+
+  cd ${myPWD}
+}
+###########################################################################
+# release
+###########################################################################
+f_release()
+{
+  myPWD=$(pwd)
+
+  #release
+  cd ${RBUILD}/release && make && ./src/dr2 $*
+  cd ${myPWD}
+}
+###########################################################################
+# f_debug
+###########################################################################
+f_debug()
+{
+  myPWD=$(pwd)
+
+  #debug
+  cd ${RBUILD}/debug && make  && ./src/dr2 $*
+
+  cd ${myPWD}
+}
+###########################################################################
+# f_make
+###########################################################################
+f_make()
+{
+  f_debug
+  f_release
+}
+###########################################################################
+# gdb
+###########################################################################
+f_gdb()
+{
+  myPWD=$(pwd)
+
+  #debug
+  cd ${RBUILD}/debug && make  && gdb ./src/dr2 
+
+  cd ${myPWD}
+}
+###########################################################################
+# gprof
+###########################################################################
+f_gprof()
+{
+  myPWD=$(pwd)
+  cd ${RROOT}
+  gprof -b ./${APPLICATION_NAME} | less
+  cd ${myPWD}
+}
+###########################################################################
+# BEAUTIFIER
+###########################################################################
+f_beautifier()
+{
+  myPWD=$(pwd)
+  cd ${RROOT}
+  uncrustify -c ${RRSR}/uncrustifyLinux.cfg -l C --no-backup  $(find src -name "*.[ch]")
+  cd ${myPWD}
+}
+###########################################################################
+# SEARCH
+###########################################################################
+f_search()
+{
+
+TMP_FILE="/tmp/${BS_NAME}_$(whoami)"
+
+if [ ! ${1} ]; then echo ${USAGE_STR}; return; fi
+
+SEARCH_STRING="grep -in ${1}"
+shift
+
+while [ -n "$*" ]
+do
+   SEARCH_STRING="${SEARCH_STRING} | grep -i ${1}" 
+   shift
+done
+
+for f in $(find ${RSRC} -type f -name "*.[ch]" ) $(find ${RPROX} -type f -name "*.py" ); do 
+ COMMAND_COUNT="echo ${f} | cat - ${f} | ${SEARCH_STRING} | wc -l"
+ NB_OCC_F=$(eval ${COMMAND_COUNT} )
+
+  if [ ${NB_OCC_F} != 0 ]; then
+  echo -e "\033[7m ${f} ${NB_OCC_F}\033[0m"
+
+  COMMAND_DISPLAY="cat ${f} | ${SEARCH_STRING}"
+
+# save old line separator to prevent space to be used
+  old_IFS=${IFS}
+  IFS=$'\n'
+
+   for line in $(eval ${COMMAND_DISPLAY}) ; do 
+     echo "    ${line}"; 
+   done 
+
+  IFS=${old_IFS}
+
+  fi
+
+done;
+}
+###########################################################################
+# CASE SEARCH
+###########################################################################
+f_case_search()
+{
+
+TMP_FILE="/tmp/${BS_NAME}_`whoami`"
+
+if [ ! ${1} ]; then echo ${USAGE_STR}; return; fi
+
+DIR_NAME=${RSRC}
+
+SEARCH_STRING="grep -n ${1}"
+shift
+
+while [ -n "$*" ]
+do
+   SEARCH_STRING="${SEARCH_STRING} | grep -i ${1}" 
+   shift
+done
+
+for f in $(find ${DIR_NAME} -type f -name "*.[ch]" ); do 
+ COMMAND_COUNT="echo ${f} | cat - ${f} | ${SEARCH_STRING} | wc -l"
+ NB_OCC_F=$(eval ${COMMAND_COUNT} )
+
+  if [ ${NB_OCC_F} != 0 ]; then
+  echo -e "\033[7m ${f} ${NB_OCC_F}\033[0m"
+
+  COMMAND_DISPLAY="cat ${f} | ${SEARCH_STRING}"
+
+# save old line separator to prevent space to be used
+  old_IFS=${IFS}
+  IFS=$'\n'
+
+   for line in $(eval ${COMMAND_DISPLAY}) ; do 
+     echo "    ${line}"; 
+   done 
+
+  IFS=${old_IFS}
+
+  fi
+
+done;
+
+}
+###########################################################################
+# REPLACE
+###########################################################################
+f_replace()
+{
+
+USAGE_STR="f_replace oldstring newstring"
+
+if [ ! ${1} ]; then echo ${USAGE_STR}; return; fi
+if [ ! ${2} ]; then echo ${USAGE_STR}; return; fi
+
+NEW_STRING=${2}
+OLD_STRING=${1}
+
+for f in $(find ${RSRC} -type f -name "*.[ch]" ) $(find ${RPROX} -type f -name "*.py" ); do 
+ NB_OCC_F=$(grep -c ${OLD_STRING} ${f})
+  if [ ${NB_OCC_F} != 0 ]; then
+     echo -e "\033[7m [--------------- ${NB_OCC_F} : ${f} ---------------------]\033[0m"
+     sed "s/${OLD_STRING}/${NEW_STRING}/g" ${f} | grep ${NEW_STRING}
+
+     REP_USER=`xmessage -nearmouse -print -buttons Yes:0,No:1 apply`
+     if [ ${REP_USER} = Yes ]; then
+      echo "Proceed ${f} ${OLD_STRING} -> ${NEW_STRING}"
+      sed -i "s/${OLD_STRING}/${NEW_STRING}/g" ${f}
+     fi
+  fi
+done;
+
+}
+###########################################################################
+# PREPO
+###########################################################################
+f_prepo()
+{
+OUT_PATH="${ROUT}"
+OUT_EXE=${OUT_PATH}/gen_prep
+
+DEP_DIR="\
+/usr/local/include \
+/usr/include/librsvg-2.0 \
+/usr/include/glib-2.0 \
+/usr/lib/i386-linux-gnu/glib-2.0/include \
+/usr/include/gdk-pixbuf-2.0 \
+/usr/include/cairo \
+/usr/include/libpng12 \
+/usr/include/pixman-1 \
+/usr/include/freetype2 \
+/usr/include/SDL"
+
+for nd in $(find src/ -mindepth 1 -type d ) ${DEP_DIR};
+do
+  DIR_INCL="${DIR_INCL} -I${nd}" 
+done 
+
+if [ -d ${OUT_PATH} ];then rm -rf  ${OUT_PATH}; fi
+
+mkdir -p ${OUT_PATH}; 
+
+myfile=$(find out src ! -type d -name "*.[ch]");
+
+echo '#!/bin/bash' > ${OUT_EXE}
+echo "CDIRS_INC=\"${DIR_INCL}\"" >> ${OUT_EXE}
+echo "CDEBUG_SYMBOLS=\"${DEBUG_SYMBOLS}\"" >> ${OUT_EXE}
+
+for nf in ${myfile}
+do
+    echo  "gcc \${CDEBUG_SYMBOLS} \${CDIRS_INC} -E ${nf} > ${OUT_PATH}/$(basename ${nf})_prep" >> ${OUT_EXE}
+done;
+
+chmod +x ${OUT_EXE}
+
+${OUT_EXE}
+}
+###########################################################################
+echo "ride environnement set ${RIDE_ROOT}"

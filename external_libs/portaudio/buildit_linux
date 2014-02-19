@@ -1,0 +1,6 @@
+cd portaudio_v19_20140130
+./configure --enable-cxx --without-jack && make clean && make
+cp ./lib/.libs/libportaudio.a ./bindings/cpp/lib/.libs/libportaudiocpp.a ../../out/
+make clean
+find -name "*.o"|xargs rm 
+find -name "*.a"|xargs rm 

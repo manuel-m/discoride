@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configurationDescriptor version="88">
+  <logicalFolder name="root" displayName="root" projectFiles="true" kind="ROOT">
+    <df root="." name="glfw-2.7.7">
+      <df name="include">
+        <df name="GL">
+          <in>glfw.h</in>
+        </df>
+      </df>
+      <df name="lib">
+        <df name="x11">
+          <in>platform.h</in>
+          <in>x11_enable.c</in>
+          <in>x11_fullscreen.c</in>
+          <in>x11_glext.c</in>
+          <in>x11_init.c</in>
+          <in>x11_keysym2unicode.c</in>
+          <in>x11_thread.c</in>
+          <in>x11_time.c</in>
+          <in>x11_window.c</in>
+        </df>
+        <in>enable.c</in>
+        <in>fullscreen.c</in>
+        <in>glext.c</in>
+        <in>init.c</in>
+        <in>input.c</in>
+        <in>internal.h</in>
+        <in>thread.c</in>
+        <in>time.c</in>
+        <in>window.c</in>
+      </df>
+    </df>
+    <logicalFolder name="ExternalFiles"
+                   displayName="Important Files"
+                   projectFiles="false"
+                   kind="IMPORTANT_FILES_FOLDER">
+      <itemPath>CMakeLists.txt</itemPath>
+      <itemPath>Makefile</itemPath>
+    </logicalFolder>
+  </logicalFolder>
+  <sourceFolderFilter>^(nbproject)$</sourceFolderFilter>
+  <sourceRootList>
+    <Elem>.</Elem>
+  </sourceRootList>
+  <projectmakefile>Makefile</projectmakefile>
+  <confs>
+    <conf name="Default" type="0">
+      <toolsSet>
+        <remote-sources-mode>LOCAL_SOURCES</remote-sources-mode>
+        <compilerSet>default</compilerSet>
+        <dependencyChecking>false</dependencyChecking>
+        <rebuildPropChanged>false</rebuildPropChanged>
+      </toolsSet>
+      <codeAssistance>
+      </codeAssistance>
+      <makefileType>
+        <makeTool>
+          <buildCommandWorkingDir>.</buildCommandWorkingDir>
+          <buildCommand>${MAKE} -f Makefile</buildCommand>
+          <cleanCommand>${MAKE} -f Makefile clean</cleanCommand>
+          <executablePath></executablePath>
+          <cTool>
+            <incDir>
+              <pElem>lib</pElem>
+              <pElem>lib/x11</pElem>
+              <pElem>.</pElem>
+            </incDir>
+            <preprocessorList>
+              <Elem>_GLFW_HAS_GLXGETPROCADDRESS</Elem>
+              <Elem>_GLFW_HAS_PTHREAD</Elem>
+              <Elem>_GLFW_HAS_SCHED_YIELD</Elem>
+              <Elem>_GLFW_HAS_SYSCONF</Elem>
+              <Elem>_GLFW_HAS_XRANDR</Elem>
+            </preprocessorList>
+          </cTool>
+        </makeTool>
+      </makefileType>
+      <item path="include/GL/glfw.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lib/enable.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="lib/fullscreen.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="lib/glext.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="lib/init.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="lib/input.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="lib/internal.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lib/thread.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="lib/time.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="lib/window.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="lib/x11/platform.h" ex="false" tool="3" flavor2="0">
+      </item>
+      <item path="lib/x11/x11_enable.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="lib/x11/x11_fullscreen.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="lib/x11/x11_glext.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="lib/x11/x11_init.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="lib/x11/x11_keysym2unicode.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="lib/x11/x11_thread.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="lib/x11/x11_time.c" ex="false" tool="0" flavor2="0">
+      </item>
+      <item path="lib/x11/x11_window.c" ex="false" tool="0" flavor2="0">
+      </item>
+    </conf>
+  </confs>
+</configurationDescriptor>

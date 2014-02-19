@@ -1,0 +1,18 @@
+find_path(MPG123_INCLUDE_DIR NAMES mpg123.h
+          PATH_SUFFIXES mpg123
+          DOC "The mpg123 include directory"
+)
+
+find_library(MPG123_LIBRARY NAMES mpg123
+          DOC "The mpg123 library"
+)
+
+include(FindPackageHandleStandardArgs)
+FIND_PACKAGE_HANDLE_STANDARD_ARGS(MPG123 DEFAULT_MSG MPG123_LIBRARY MPG123_INCLUDE_DIR)
+
+if(MPG123_FOUND)
+  set( MPG123_LIBRARIES ${MPG123_LIBRARY} )
+  set( MPG123_INCLUDE_DIRS ${MPG123_INCLUDE_DIR} )
+endif()
+
+mark_as_advanced(MPG123_INCLUDE_DIR MPG123_LIBRARY)

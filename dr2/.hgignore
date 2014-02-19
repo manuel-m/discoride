@@ -1,0 +1,22 @@
+# use glob syntax.
+syntax: glob
+
+*.elc
+*.log
+*.pyc
+*~
+*_
+*.orig
+*.o
+*.d
+gmon.out
+build_version
+*/.git/*
+ressources/tinycthread/README.txt
+ressources/tinycthread/*.bz2
+ressources/tinycthread/*.zip
+ressources/tinycthread/doc/*
+ressources/tinycthread/mkbuild.sh
+ressources/tinycthread/test/*
+
+

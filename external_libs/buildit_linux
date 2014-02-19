@@ -1,0 +1,12 @@
+#!/bin/bash
+
+MYBASEDIR=$(pwd)
+
+BSCRIPT=buildit_linux
+
+for f in $(find . -mindepth 2 -name "${BSCRIPT}");
+do
+    cd $(dirname ${f})
+    ./${BSCRIPT}
+    cd ${MYBASEDIR}   
+done;

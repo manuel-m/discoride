@@ -1,0 +1,13 @@
+synth_stereo_x86_64_s32.lo: synth_stereo_x86_64_s32.S \
+ /usr/include/stdc-predef.h /usr/include/x86_64-linux-gnu/bits/predefs.h \
+ mangle.h ../../src/config.h intsym.h
+
+/usr/include/stdc-predef.h:
+
+/usr/include/x86_64-linux-gnu/bits/predefs.h:
+
+mangle.h:
+
+../../src/config.h:
+
+intsym.h:

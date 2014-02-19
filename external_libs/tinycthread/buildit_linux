@@ -1,0 +1,6 @@
+cmake . && make 
+cp ./libtinycthread.a ../out/
+make clean
+rm -rf CMakeCache.txt CMakeFiles 
+rm Makefile
+rm cmake_install.cmake

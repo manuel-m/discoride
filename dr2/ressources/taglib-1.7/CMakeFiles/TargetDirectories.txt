@@ -1,0 +1,3 @@
+/home/jam/Dropbox/dev/dr/dr2/ressources/taglib-1.7/CMakeFiles/docs.dir
+/home/jam/Dropbox/dev/dr/dr2/ressources/taglib-1.7/taglib/CMakeFiles/tag.dir
+/home/jam/Dropbox/dev/dr/dr2/ressources/taglib-1.7/bindings/c/CMakeFiles/tag_c.dir

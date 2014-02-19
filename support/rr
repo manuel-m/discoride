@@ -1,0 +1,23 @@
+#!/bin/bash
+
+USAGE_STR="f_replace oldstring newstring"
+
+if [ ! ${1} ]; then echo ${USAGE_STR}; exit; fi
+if [ ! ${2} ]; then echo ${USAGE_STR}; exit; fi
+
+NEW_STRING=${2}
+OLD_STRING=${1}
+
+for f in $(ack-grep ${OLD_STRING} --ignore-dir=external_libs --ignore-dir=nbproject --ignore-dir=ressources -l --text );
+do
+      echo -e "\033[7m${f}\033[0m"
+      sed "s/${OLD_STRING}/${NEW_STRING}/g" ${f} | grep ${NEW_STRING}
+
+     REP_USER=`xmessage -nearmouse -print -buttons Yes:0,No:1 apply`
+     if [ ${REP_USER} = Yes ]; then
+      echo "Proceed ${f} ${OLD_STRING} -> ${NEW_STRING}"
+      sed -i "s/${OLD_STRING}/${NEW_STRING}/g" ${f}
+     fi
+
+done;
+

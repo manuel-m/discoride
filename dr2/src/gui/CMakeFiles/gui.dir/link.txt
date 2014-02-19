@@ -1,0 +1,2 @@
+/usr/bin/ar cr libgui.a  CMakeFiles/gui.dir/rpanel_dock0.c.o CMakeFiles/gui.dir/rpanel_dock1.c.o CMakeFiles/gui.dir/rpanel_mix.c.o CMakeFiles/gui.dir/rpanel_playlist.c.o CMakeFiles/gui.dir/rpanels.c.o CMakeFiles/gui.dir/rpanel_sidebar.c.o CMakeFiles/gui.dir/rpanel_waves.c.o
+/usr/bin/ranlib libgui.a

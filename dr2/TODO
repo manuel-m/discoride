@@ -1,0 +1,73 @@
+v2.03 progress bar when normalizing audio
+v2.04 refactor channel states | loading x playing |
+v2.05 update time when playing
+      wave display: update elapsed time when playing
+      multitexture per widgets
+      on the fly CUE set
+v2.06 build bug fix
+
+===============================================================
+# ROADMAP 
+#
+# DISCLAIMER: MIGHT NEVER BEEN DONE 
+===============================================================
+
+--------------------------------------------------------------
+[?] idea            [H] high priority   [M] medium priority 
+[L] low priority    [*] in course       [!] impediment 
+---------------------------------------------------------------
+
+[?] ffmpeg 
+[?] playlist: scroll long labels 
+[?] playlist: shorten big track names
+[?] push track feature: can receive tracks from network
+[?] wave display modes: both channel or selected one
+[?] wave display: spectral display
+[?] loading tracks from network (libcurl)
+
+[L] audio mix: use channel play state for audio mix computing
+[L] cross fader animation 
+[L] evaluate splint for code check
+[L] evaluate splint for code check
+[L] playlist: drop underscores characters
+[L] use GIT source control management
+[L] wave display: zoom when channel is not playing
+[L] freetype gl
+[L] GLEW
+
+[M] add pich value (inside jog?)
+[M] enhance openGL tex allocation
+[M] playlist: drop filenames suffix
+[M] replace gain fader by gain pot
+[M] replace pitch fader by pitch pot
+[M] search feature in media library
+[M] text alinement enhancement
+[M] widgets with no tex
+[M] sound effect break
+[M] external controleur
+[M] build in shell
+[M] media library database info : bpm, label, id3 tag, tags, loops
+
+[H] auto sync tracks
+[H] bpm approximation from graphical user input 
+[H] bpm display
+[H] fullscreen
+[H] mix automation, animation on TAB
+[H] new pot widget
+[H] activate play during track loading
+[!] data[]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

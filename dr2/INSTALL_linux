@@ -1,0 +1,133 @@
+#!/bin/bash
+
+RROOT=$(pwd)
+RBUILD=${RROOT}/build
+
+VALIDATE_MESS="[RETURN] to proceed or [CTRL-C] to cancel"
+
+###########################################################################
+# f_clean_pub
+###########################################################################
+f_clean_pub()
+{
+  myPWD=$(pwd)
+  rm -rf ${RBUILD} 2>/dev/null
+  mkdir ${RBUILD}
+  cd ${myPWD}
+}
+###########################################################################
+# f_build_pub
+###########################################################################
+f_build_pub()
+{
+  myPWD=$(pwd)
+  f_clean_pub
+  cd ${RBUILD}
+  cmake  -DCMAKE_BUILD_TYPE=release ../ && make
+  cd ${myPWD}
+}
+#==============================================================================
+# f_install_pub
+#==============================================================================
+f_install_pub()
+{
+  cd ${RBUILD}
+  sudo make install
+  cd ${myPWD}
+}
+#==============================================================================
+# start
+#==============================================================================
+echo '#=============================================================================='
+echo '# discoride v2.02 builder/installer '
+echo '#=============================================================================='
+echo 
+echo 
+echo "dj audio application designed for netbook computers"
+echo "Requirements:"
+echo "- audio soundcard"
+echo "- accelerated graphic card"
+echo "Compatible jack audio (appears as portaudio inside jack)"
+echo 
+echo "Test with samsung NC10 on Linux Ubuntu/Mint"
+echo 
+echo "See COPYING for licensing"
+echo 
+echo "DISCLAIMER: proceed at your own risk, discoride is still a prototype"
+echo ${VALIDATE_MESS}
+read
+
+echo '#=============================================================================='
+echo '# external packaged libs'
+echo '#=============================================================================='
+req_packages="libmpg123-dev libtre-dev libjack-jackd2-dev libcairo2-dev libgdk-pixbuf2.0-dev libxrandr-dev mesa-common-dev libglu1-mesa-dev cmake"
+echo "Most dependencies needed are already available in main distros"
+echo "${req_packages}"
+echo "Packages install (sudo)"
+echo ${VALIDATE_MESS}
+read
+sudo apt-get install ${required_packages}
+
+echo '#=============================================================================='
+echo '# portaudio library (www.portaudio.com) '
+echo '#=============================================================================='
+echo "build and install (sudo)"
+echo ${VALIDATE_MESS}
+read
+cd ${RROOT}/ressources
+tar xvfz pa_stable_v19_20111121.tgz
+cd portaudio
+./configure
+make
+sudo make install
+
+echo '#=============================================================================='
+echo '# GLFW library (www.glfw.org)'
+echo '#=============================================================================='
+echo "build and install (sudo)"
+read
+cd ${RROOT}/ressources
+tar xvfj glfw-2.7.6.tar.bz2
+cd glfw-2.7.6
+./compile.sh 
+make x11
+sudo make x11-install 
+
+echo '#=============================================================================='
+echo '# taglib library (http://taglib.github.com) '
+echo '#=============================================================================='
+echo "build and install (sudo)"
+echo ${VALIDATE_MESS}
+read
+cd ${RROOT}/ressources
+tar xvfz taglib-1.7.tar.gz
+cd taglib-1.7/
+cmake -DCMAKE_INSTALL_PREFIX=/usr/local -DCMAKE_RELEASE_TYPE=Release .
+make
+sudo make install
+
+echo '#=============================================================================='
+echo '# discoride (http://www.discoride.com)'
+echo '#=============================================================================='
+sudo ldconfig
+echo "build discoride"
+echo ${VALIDATE_MESS}
+read
+
+f_build_pub
+echo "install (sudo)"
+echo ${VALIDATE_MESS}
+read
+f_install_pub
+
+echo "usage: "
+echo "  open a terminal"
+echo "  dr2 *.mp3 */*.mp3"
+
+#==============================================================================
+# end
+#==============================================================================
+cd ${RROOT}
+
+
+
