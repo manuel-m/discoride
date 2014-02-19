@@ -30,9 +30,7 @@ set(EXECUTABLE_OUTPUT_PATH ${DR_BIN})
 
 # include(Splint)
 
-add_subdirectory (external_libs)
-
-add_subdirectory (dr2)
+# add_subdirectory (dr2)
 add_subdirectory (dr3)  
 
 

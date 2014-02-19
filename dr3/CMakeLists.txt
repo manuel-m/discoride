@@ -32,14 +32,8 @@ find_package(X11 REQUIRED)
 include(MacroUseTinyCThread)
 macro_use_tinycthread()
 
-include(MacroUseLacewing)
-macro_use_lacewing()
-
 include(MacroUseGlfw)
 macro_use_glfw()
-
-include(MacroUseRtAudio)
-macro_use_rtaudio()
 
 include(MacroUsePortaudio)
 macro_use_portaudio()
@@ -49,9 +43,6 @@ macro_use_mpg123()
 
 include(MacroUseFltk)
 macro_use_fltk()
-
-include(MacroUseLua)
-macro_use_lua()
 
 set( LIB_BASENAME libs)
 
