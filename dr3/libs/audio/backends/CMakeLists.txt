@@ -1,7 +1,0 @@
-
-add_subdirectory (portaudio)
-add_subdirectory (rtaudio)
-
-
-
-

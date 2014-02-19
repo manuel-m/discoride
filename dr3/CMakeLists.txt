@@ -71,7 +71,6 @@ include_directories (${CMAKE_CURRENT_SOURCE_DIR}/${LIB_BASENAME}/ui/backends/min
 # sub_dir
 # 
 #==============================================================================
-add_subdirectory (libs)
 add_subdirectory (main)
 
 
