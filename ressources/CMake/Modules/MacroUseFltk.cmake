@@ -4,7 +4,7 @@ MACRO(macro_use_fltk)
 set( CURRENT_FLTK_VERSION fltk-1.3.2 )
 set( CURRENT_FLTK_DIR ${PROJECT_SOURCE_DIR}/external_libs/fltk/${CURRENT_FLTK_VERSION} )
 
-set (FLTK_A ${CURRENT_FLTK_DIR}/lib/libfltk.a)
+set (FLTK_A ${PROJECT_SOURCE_DIR}/external_libs/out/libfltk.a)
 
 include_directories (${CURRENT_FLTK_DIR})
 

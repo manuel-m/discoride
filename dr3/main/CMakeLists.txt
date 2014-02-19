@@ -19,7 +19,7 @@ target_link_libraries (${DR3_MAIN} ${GLFW_A})
 target_link_libraries (${DR3_MAIN} ${OpenGL_LIBRARIES})
 target_link_libraries (${DR3_MAIN} ${X11_LIBRARIES})
 target_link_libraries (${DR3_MAIN} ${XRANDR_LIBRARIES})
-target_link_libraries (${DR3_MAIN} tinycthread)
+target_link_libraries (${DR3_MAIN} ${TINYCTHREAD_A})
 target_link_libraries (${DR3_MAIN} -lpthread)
 target_link_libraries (${DR3_MAIN} -lXxf86vm -lXi)
  

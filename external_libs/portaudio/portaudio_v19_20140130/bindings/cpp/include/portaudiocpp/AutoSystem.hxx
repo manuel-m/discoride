@@ -31,9 +31,9 @@ namespace portaudio
 	class AutoSystem
 	{
 	public:
-		AutoSystem(bool initialize = true)
+		AutoSystem(bool initialize_ = true)
 		{
-			if (initialize)
+			if (initialize_)
 				System::initialize();
 		}
 

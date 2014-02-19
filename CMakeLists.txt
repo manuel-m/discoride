@@ -47,7 +47,7 @@ set(EXECUTABLE_OUTPUT_PATH ${DR_BIN})
 
 set(LIBDR_SRC lib)
 
-include_directories (src ${LIBDR_SRC})
+include_directories (${LIBDR_SRC})
 
 
 # include(Splint)
