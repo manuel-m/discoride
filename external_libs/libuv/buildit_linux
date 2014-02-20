@@ -1,0 +1,5 @@
+#!/bin/bash
+
+ ./gyp_uv.py -f make && make -C out
+cp out/Debug/libuv.a ../out/
+rm -rf out

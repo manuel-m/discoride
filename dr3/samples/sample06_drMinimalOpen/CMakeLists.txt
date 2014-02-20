@@ -8,8 +8,6 @@ add_executable (${S06_MAIN} sample06_drMinimalOpen.cpp)
 
 target_link_libraries (${S06_MAIN} ui_minimal ui drtrace )
 target_link_libraries (${S06_MAIN} -lpthread)
-#target_link_libraries (${S06_MAIN} -lXxf86vm)
-#target_link_libraries (${S06_MAIN} -lXi)
 
 
 

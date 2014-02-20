@@ -1,4 +1,4 @@
-GENDATE=140219_2350
+GENDATE=140220_2312
 DEBUG_DIR=/tmp/cmake_w/Debug
 RELEASE_DIR=/tmp/cmake_w/Release
 

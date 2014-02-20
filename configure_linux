@@ -3,7 +3,7 @@
 MYBASEDIR=$(pwd)
 MYBSSCRIPT=buildit_linux
 
-sudo apt-get install libglu1-mesa-dev xorg-dev libmpg123-dev libtre-dev libjack-jackd2-dev libcairo2-dev libgdk-pixbuf2.0-dev libxrandr-dev mesa-common-dev 
+sudo apt-get install gyp libglu1-mesa-dev xorg-dev libmpg123-dev libtre-dev libjack-jackd2-dev libcairo2-dev libgdk-pixbuf2.0-dev libxrandr-dev mesa-common-dev 
 
 cd external_libs && ./${MYBSSCRIPT}
 cd ${MYBASEDIR}

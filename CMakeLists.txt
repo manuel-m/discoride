@@ -38,6 +38,9 @@ macro_use_mpg123()
 include(MacroUseFltk)
 macro_use_fltk()
 
+include(MacroUseUv)
+macro_use_uv()
+
 
 
 set(DR_BIN ${CMAKE_CURRENT_SOURCE_DIR}/bin)
