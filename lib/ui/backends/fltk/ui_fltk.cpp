@@ -11,6 +11,8 @@
 #pragma GCC diagnostic error "-Wshadow"
 
 #include <sys/time.h>
+#include <iostream>
+
 
 #include "ui_fltk.h"
 #include "defs.h"
@@ -70,13 +72,20 @@ namespace dr {
         (void) status_;
         dr::ui_fltk* ui = (dr::ui_fltk*) timer_->data;
         gettimeofday(ui->getCurrentTime(), 0);
-       
+        std::cout << ui->getCurrentTime()->tv_sec << "\n";
     }    
+    
+    static void ui_refresh_ide(uv_idle_t* idle_, int status_) {
+        (void) status_;
+        Fl::wait();
+    }        
+    
+ 
 
     int ui_fltk::open_backend(void) {
         m_main_window->show();
-
-        uv_timer_start(&m_timer, ui_refresh_main_timer, 0, 1000);
+        
+        
         return 0;
     }
 
@@ -96,16 +105,21 @@ namespace dr {
         m_main_window = new ui_window(w, h, m_key_handler);
         m_main_window->begin();
 
-
         m_main_window->end();
         uv_timer_init(uv_default_loop(), &m_timer);
-        m_timer.data = (void*)this;        
-        
+        m_timer.data = (void*)this;  
+        uv_timer_start(&m_timer, ui_refresh_main_timer, 0, 1000);
+
+        uv_idle_init(uv_default_loop(), &m_idle);
+        uv_idle_start(&m_idle, ui_refresh_ide);
+
         return 0;
     }
 
     int ui_fltk::update_backend(void) {
+        uv_run(uv_default_loop(), UV_RUN_DEFAULT);
         return Fl::run();
+        
     }
 
     int ui_fltk::close_backend(void) {

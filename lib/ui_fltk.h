@@ -24,7 +24,8 @@ public:
 protected:    
     ui_window* m_main_window;
 
-    uv_timer_t m_timer;    
+    uv_timer_t m_timer;
+    uv_idle_t m_idle;
     
     virtual wid_painter* create_painter(wid* wid_){(void)wid_;return 0;};
     virtual int init_backend(void);
